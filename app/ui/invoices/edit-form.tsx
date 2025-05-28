@@ -12,7 +12,7 @@ import { Button } from '@/app/ui/button';
 // import { UpdateInvoice } from './buttons';
 import { updateInvoice, State } from '@/app/lib/actions'
 import { useActionState } from 'react';
-import { init } from 'next/dist/compiled/webpack/webpack';
+// import { init } from 'next/dist/compiled/webpack/webpack';
 
 export default function EditInvoiceForm({
   invoice,
@@ -24,6 +24,7 @@ export default function EditInvoiceForm({
   const initialState: State = { message: null, errors: {}};
   const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
   const [state, formAction] = useActionState(updateInvoiceWithId, initialState);
+  console.log(state);
   return (
     <form action={formAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
