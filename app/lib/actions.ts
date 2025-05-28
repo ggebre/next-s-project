@@ -1,4 +1,4 @@
-'use client';
+'use server';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -23,9 +23,10 @@ export async function createInvoice(formData: FormData) {
     const date = new Date().toISOString().split('T')[0];
 
     await sql 
-    `INSERT INTO invoices (customerId, amount, status, date)
+    `INSERT INTO invoices (customer_id, amount, status, date)
     VALUES (${customerId}, ${amountInCents}, ${status}, ${date})`;
-
+    // once database is updated - /dashboard/invoices is revaluated and fresh data is fetched from server 
     revalidatePath('/dashboard/invoices');
+    // once submitted it is redirected to /dashboard/invoces page 
     redirect('/dashboard/invoices');
 }
